@@ -1,0 +1,10 @@
+name: projects
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - geopandas=0.7
+  - h3-py
+prefix: /Users/ujaval/opt/anaconda3/envs/projects
+
