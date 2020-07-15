@@ -1,4 +1,7 @@
 .ipynb_checkpoints
 h3/.ipynb_checkpoints/*
+*/.ipynb_checkpoints/*
+ghcn/data/*
+ghcn/output/*
 __pycache__
 
