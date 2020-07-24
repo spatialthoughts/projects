@@ -4,4 +4,6 @@ h3/.ipynb_checkpoints/*
 ghcn/data/*
 ghcn/output/*
 __pycache__
+.DS_Store
+*/*/.DS_Store
 
