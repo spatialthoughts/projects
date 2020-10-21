@@ -1,3 +1,9 @@
 ## Google Earth Engine Python API Notebooks
 
-This folder contains Jupyter notebooks that demonstrate the working of Google Earth Engine API
+This folder contains Jupyter notebooks that demonstrate the working of Google Earth Engine API.
+
+- `python_api_syntax.ipynb`: Getting started with Python API
+- `export_a_collection.ipynb`: How to export all images in a collection using `ee.Task`
+- `export_image_bands.ipynb`: How to export all bands of an image as separate image using `ee.Task`
+- `manage_tasks.ipynb`: How to list and cancel running tasks
+
