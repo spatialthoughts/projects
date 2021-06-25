@@ -7,4 +7,4 @@ line_geometry = line_feature.geometry().buffer(distance, 5)
 point_layer = QgsProject.instance().mapLayersByName(point_layer_name)[0]
 nearby_points = [p.id() for p in point_layer.getFeatures() 
     if p.geometry().intersects(line_geometry) ]
-layer.selectByIds(nearby_points)
+point_layer.selectByIds(nearby_points)
