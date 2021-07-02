@@ -1,6 +1,6 @@
 from qgis.utils import iface
 
-path = '[%location%]'
+path = r'[%location%]'
 iface.addRasterLayer(path)
 
 index_layer_name = 'index'
