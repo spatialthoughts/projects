@@ -1,7 +1,7 @@
 from qgis.utils import iface
 from PyQt5.QtCore import QFileInfo
 
-path = '[%location%]'
+path = r'[%location%]'
 layer_name = QFileInfo(path).baseName()
 layer_list = QgsProject.instance().mapLayersByName(layer_name)
 if layer_list:
