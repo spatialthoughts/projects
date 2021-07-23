@@ -1,9 +1,9 @@
 """This script is an example of automating a download
 using Google Earth Engine API.
 
-This script exports the average soil moisture for the
-past 1-week over all districts in a state. The data
-is exported as a JSON file and saved locally.
+This script computes the average soil moisture for the
+past 1-week over all districts in a state. The result 
+is then downloaded as a JSON file and saved locally.
 
 The Python environment needs to have earthengine-api
 package installed. After install, a one-time authentication
