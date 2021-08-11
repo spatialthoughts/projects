@@ -7,6 +7,7 @@ This action to be defined on the point layer
 import math
 from qgis.utils import iface
 from qgis.core import QgsSpatialIndex, QgsVectorLayer
+from PyQt5.QtCore import QVariant
 
 street_layer = 'Street'
 street_layer_name_attr = 'NAME'
@@ -14,6 +15,7 @@ left_from_field = 'L_F_ADD'
 left_to_field = 'L_T_ADD'
 right_from_field = 'R_F_ADD'
 right_to_field = 'R_T_ADD'
+address_attribute_name = 'ADDRESS'
 
 # Point layer to reverse geocode
 point_layer = QgsProject.instance().mapLayer('[% @layer_id %]')
@@ -26,11 +28,11 @@ street_layer = QgsProject.instance().mapLayersByName(street_layer)[0]
 
 # Use Spatial Index to find nearest features 
 index = QgsSpatialIndex(street_layer.getFeatures())
-nearestids = index.nearestNeighbor(geometry)
+# Get 5 nearest features based on the spatial index
+nearestids = index.nearestNeighbor(geometry, 5)
 nearest_distance = 9999
 # Iterate over candidate features and find the nearest one
 for f in street_layer.getFeatures(QgsFeatureRequest(nearestids)):
-    nearest_feature = f
     distance = geometry.distance(f.geometry())
     if distance < nearest_distance:
         nearest_feature = f
@@ -85,14 +87,20 @@ elif side == 'Right' and rounded % 2 == 0:
 elif side == 'Right' and rounded % 2 != 0:
     streetnum = rounded + 1
 
-address = '{:.0f}, {} ({} side of street)'.format(streetnum, street_name, side)
-iface.messageBar().pushMessage(address)
+address = '{:.0f}, {}'.format(streetnum, street_name)
+side = '{} side of street'.format(side)
+message = '{}, ({})'.format(address, side)
+iface.messageBar().pushMessage(message)
 
 # Create a point layer showing the nearest point whose address we determined
 vlayer = QgsVectorLayer('Point?crs=EPSG:2274', 'point', 'memory')
+provider = vlayer.dataProvider()
+provider.addAttributes([QgsField(address_attribute_name, QVariant.String)])
+vlayer.updateFields() 
 
 f = QgsFeature()
 f.setGeometry(nearest_point)
+f.setAttributes([address])
 provider = vlayer.dataProvider()
 provider.addFeature(f)
 vlayer.updateExtents() 
