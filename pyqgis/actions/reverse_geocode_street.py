@@ -36,6 +36,7 @@ for f in street_layer.getFeatures(QgsFeatureRequest(nearestids)):
     distance = geometry.distance(f.geometry())
     if distance < nearest_distance:
         nearest_feature = f
+        nearest_distance = distance
 
 # Now we have the nearest line
 # Determine which side of the street is the address point
