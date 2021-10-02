@@ -11,3 +11,4 @@ This folder contains Scripts and Jupyter notebooks that various geospatial data 
 - [`maritime_piracy.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/maritime_piracy.ipynb): Exploring Anti-shipping Activity Messages data.
 - [`reprojection_and_coordinate_transform.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/reprojection_and_coordinate_transform.ipynb): Code for reprojecting layers and coordinate transformation using OGR as well as GeoPandas.
 - [`complex_kml_to_gpkg.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/complex_kml_to_gpkg.ipynb): Converting a large KML file to a GeoPackage using GeoPandas.
+- [`xarray_netcdf.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/xarray_netcdf.ipynb): Working with CRU NetCDF files using xarray and rioxarray. 
