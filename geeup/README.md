@@ -47,10 +47,16 @@ geeup getmeta \
 python update_metadata.py
 ```
 
-4. Generate cookies using `geeup cookie_setup`. On Mac, need to switch to Bash and disble canonical mode.
+4. Generate cookies using `geeup cookie_setup`. 
 
 > Note: Make sure you grab cookies from the main Code Editor application at https://code.earthengine.google.com. Cookies from subdomains such as https://code.earthengine.google.co.in/ will not work.
 
+```
+geeup cookie_setup
+<paste cookies using the Chrome Extension>
+```
+
+On Mac, need to switch to Bash and disble canonical mode.
 ```
 /bin/sh
 stty -icanon
