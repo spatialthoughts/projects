@@ -15,7 +15,7 @@ def get_date_from_name(row):
     doy = int(matches.group(2))
     date = pd.to_datetime(year * 1000 + doy, format='%Y%j')
     # GEE expects dates in timestamp format
-    return date.timestamp()
+    return int(date.timestamp() * 1000)
 
 df['system:time_start'] = df.apply(get_date_from_name, axis=1)
 df.to_csv(filename, index=False)
