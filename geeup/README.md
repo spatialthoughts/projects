@@ -81,3 +81,5 @@ geeup upload \
     -u ujaval@spatialthoughts.com \
     --method cookies
 ```
+
+8. Verify and test. https://code.earthengine.google.com/2dc49d0edca3ee311c2132d4a35cdf19
