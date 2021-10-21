@@ -1,4 +1,7 @@
+# This script replaces '.' with '_' in the filenames
+
 import os
+
 data_dir = 'data'
 files = os.listdir(data_dir)
 for old_name in files:
