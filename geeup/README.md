@@ -2,7 +2,7 @@
 
 This scripts were written for uploading some eMODIS NDVI files to GEE via the [geeup](https://github.com/samapriya/geeup) tool.
 
-The scripts assume the following directory structureThe scripts can be modified to suit any other dataset.
+The scripts assume the following directory structure. For other datasets, the scripts should be modified to match the filename pattern and directory structure.
 
 ```
 Desktop
