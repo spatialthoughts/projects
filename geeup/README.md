@@ -41,7 +41,25 @@ geeup getmeta \
     --metadata /Users/ujavalgandhi/Desktop/eModis/meta.csv
 ```
 
-4. 
+3. Extract image date from the filename and update the `meta.csv` file.
+
+```
+python update_metadata.py
+```
+
+4. Generate cookies using `geeup cookie_setup`. On Mac, need to switch to Bash and disble canonical mode.
+
+> Note: Make sure you grab cookies from the main Code Editor application at https://code.earthengine.google.com. Cookies from subdomains such as https://code.earthengine.google.co.in/ will not work.
+
+```
+/bin/sh
+stty -icanon
+geeup cookie_setup
+<paste cookies using the Chrome Extension>
+stty icanon
+/bin/zsh
+```
+
 5. Upload the data using cookies.
 ```
 geeup upload \
