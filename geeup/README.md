@@ -60,11 +60,17 @@ stty icanon
 /bin/zsh
 ```
 
-5. Upload the data using cookies.
+5. It's a good idea to create a collection for the data first. You can use the `earthengine` command-line tool.
+
+```
+earthengine create collection users/ujavalgandhi/eModis
+```
+
+7. Upload the data to the new collection using cookies.
 ```
 geeup upload \
     --source /Users/ujavalgandhi/Desktop/eModis/data/ \
-    --dest users/ujavalgandhi/temp/eModis \
+    --dest users/ujavalgandhi/eModis \
     -m /Users/ujavalgandhi/Desktop/eModis/meta.csv \
     -u ujaval@spatialthoughts.com \
     --method cookies
