@@ -1,5 +1,5 @@
-# import required modules. 
-import os
+# Script to extract image date from filename
+# and update the meta.csv file with system:time_start property
 import pandas as pd
 import re
 

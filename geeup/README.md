@@ -2,7 +2,7 @@
 
 This scripts were written for uploading some eMODIS NDVI files to GEE via the [geeup](https://github.com/samapriya/geeup) tool.
 
-The scripts assume the following directory structureThe scripts can be modified to suit any other dataset.
+The scripts assume the following directory structure. For other datasets, the scripts should be modified to match the filename pattern and directory structure.
 
 ```
 Desktop
@@ -41,13 +41,45 @@ geeup getmeta \
     --metadata /Users/ujavalgandhi/Desktop/eModis/meta.csv
 ```
 
-4. 
-5. Upload the data using cookies.
+3. Extract image date from the filename and update the `meta.csv` file.
+
+```
+python update_metadata.py
+```
+
+4. Generate cookies using `geeup cookie_setup`. 
+
+> Note: Make sure you grab cookies from the main Code Editor application at https://code.earthengine.google.com. Cookies from subdomains such as https://code.earthengine.google.co.in/ will not work.
+
+```
+geeup cookie_setup
+<paste cookies using the Chrome Extension>
+```
+
+On Mac, need to switch to Bash and disble canonical mode.
+```
+/bin/sh
+stty -icanon
+geeup cookie_setup
+<paste cookies using the Chrome Extension>
+stty icanon
+/bin/zsh
+```
+
+5. It's a good idea to create a collection for the data first. You can use the `earthengine` command-line tool.
+
+```
+earthengine create collection users/ujavalgandhi/eModis
+```
+
+7. Upload the data to the new collection using cookies.
 ```
 geeup upload \
     --source /Users/ujavalgandhi/Desktop/eModis/data/ \
-    --dest users/ujavalgandhi/temp/eModis \
+    --dest users/ujavalgandhi/eModis \
     -m /Users/ujavalgandhi/Desktop/eModis/meta.csv \
     -u ujaval@spatialthoughts.com \
     --method cookies
 ```
+
+8. Verify and test. https://code.earthengine.google.com/2dc49d0edca3ee311c2132d4a35cdf19
