@@ -9,7 +9,7 @@ This folder contains Scripts and Jupyter notebooks that various geospatial data 
 ### Pandas
 
 - [`unpivot.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/unpivot.ipynb): Convert column-wise data into separate rows
-- [`ghcn.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/unpivot.ipynb): Convert GHCN FWF files to XLSX
+- [`ghcn.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/ghnc.ipynb): Convert GHCN FWF files to XLSX
 
 ### GeoPandas
 
