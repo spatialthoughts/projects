@@ -12,6 +12,7 @@
 # it should be specified as projects/earthengine-legacy/assets/users/<username>
 import argparse
 import ee
+import sys
 
 parser = argparse.ArgumentParser(usage='python rename_collection.py <old collection> <new collection>')
 parser.add_argument('old_collection', help='old collection')
@@ -35,6 +36,7 @@ for col in [old_collection, new_collection]:
 
 assets = ee.data.listAssets({'parent': old_collection})['assets']
 
+
 for asset in assets:
     old_name = asset['name']
     new_name = old_name.replace(old_collection, new_collection)
@@ -43,7 +45,7 @@ for asset in assets:
     if args.delete:
         print('Deleting <{}>'.format(old_name))
         ee.data.deleteAsset(old_name)
-    
+
 if args.delete:
     print('Deleting Collection <{}>'.format(old_collection))
     ee.data.deleteAsset(old_collection)
