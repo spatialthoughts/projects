@@ -10,4 +10,5 @@ This folder contains Scripts and Jupyter notebooks that demonstrate the working 
 - [`manage_tasks.ipynb`](https://github.com/spatialthoughts/projects/blob/master/ee-python/manage_tasks.ipynb): How to list and cancel running tasks
 
 ### Scripts
+- [`rename_collection.py`](https://github.com/spatialthoughts/projects/blob/master/ee-python/rename_collection.py): Renames a collection by copying the child assets to a new collection and deleting old collection recursively.
 - [`download_data.py`](https://github.com/spatialthoughts/projects/blob/master/ee-python/download_data.py): How to automate downloading of data using Google Earth Engine API.
