@@ -1,22 +1,21 @@
-####################################################
-# A python script to rename Earth Engine Collections
-####################################################
-# GEE collections cannot be renamed directly, so this script
-# provides a simple way to get all assets in a collection
-# and copies it to the new collection
-# Sample usage
-# python rename_collection.py <old_collection> <new_collection>
-# Add a --delete option to delete old_collection
-# python rename_collection.py <old_collection> <new_collection> --delete
-# If your collection starts with users/<username>/...
-# it should be specified as projects/earthengine-legacy/assets/users/<username>
+""" A python script to rename Earth Engine Collections
+
+GEE collections cannot be renamed directly, so this script
+provides a simple way to get all assets in a collection
+and copies it to the new collection
+
+Sample usage:
+python rename_collection.py --old_collection <old_collection> --new_collection <new_collection>
+
+Add a --delete option to delete old_collection
+python rename_collection.py --old_collection <old_collection> --new_collection <new_collection> --delete
+"""
 import argparse
 import ee
-import sys
 
-parser = argparse.ArgumentParser(usage='python rename_collection.py <old collection> <new collection>')
-parser.add_argument('old_collection', help='old collection')
-parser.add_argument('new_collection', help='new collection')
+parser = argparse.ArgumentParser(usage='python rename_collection.py --old_collection <old collection> --new_collection <new collection>')
+parser.add_argument('--old_collection', help='old collection')
+parser.add_argument('--new_collection', help='new collection')
 parser.add_argument('--delete', help='delete old collection', action=argparse.BooleanOptionalAction)
 
 args = parser.parse_args()
@@ -26,13 +25,14 @@ new_collection = args.new_collection
 
 ee.Initialize()
 
-# Check if collections exist
-for col in [old_collection, new_collection]:
-    try:
-        ee.ImageCollection(col).getInfo()
-    except:
-        print('Collection {} does not exist'.format(col))
-        sys.exit(1)
+# Check if new collection exists
+try:
+    ee.ImageCollection(new_collection).getInfo()
+except:
+    print('Collection {} does not exist'.format(new_collection))
+    ee.data.createAsset({'type': ee.data.ASSET_TYPE_IMAGE_COLL}, new_collection)
+    print('Created a new empty collection {}.'.format(new_collection))
+    
 
 assets = ee.data.listAssets({'parent': old_collection})['assets']
 

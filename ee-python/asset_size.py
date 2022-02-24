@@ -12,18 +12,16 @@ python asset_size.py \
 """
 import argparse
 import ee
-import sys
 import csv
-
-ee.Initialize()
 
 parser = argparse.ArgumentParser(usage='python asset_size.py <path to asset folder> <output_file>')
 parser.add_argument('--asset_folder', help='full path to the asset folder')
 parser.add_argument('--output_file', help='output file to write')
 
 args = parser.parse_args()
-
 parent = args.asset_folder
+
+ee.Initialize()
 
 def get_asset_list(parent):
     parent_asset = ee.data.getAsset(parent)
@@ -35,6 +33,7 @@ def get_asset_list(parent):
         child_id = child_asset['name']
         child_type = child_asset['type']
         if child_type in ['FOLDER','IMAGE_COLLECTION']:
+            # Recursively call the function to get child assets
             asset_list.extend(get_asset_list(child_id))
         else:
             asset_list.append(child_id)
@@ -59,11 +58,15 @@ for asset in all_assets:
     })
     
 
+# Sort the assets by size
+sorted_data = sorted(data, key=lambda d: d['size_mb'], reverse=True)
+
+# Write the data to a file
 fieldnames = ['asset', 'type', 'size_mb']
 with open(args.output_file, mode='w') as output_file:
     csv_writer = csv.DictWriter(output_file, fieldnames=fieldnames)
     csv_writer.writeheader()
-    for row in data:
+    for row in sorted_data:
         csv_writer.writerow(row)
         
 print('Successfully written output file at {}'.format(args.output_file))
