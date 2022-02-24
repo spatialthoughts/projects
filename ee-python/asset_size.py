@@ -1,3 +1,15 @@
+"""This script queries your Asset folder and generates a CSV file
+with the size and type of each asset.
+
+Usage:
+
+python asset_size.py --asset_folder <path to any asset folder> --output_file output.csv
+
+Example
+python asset_size.py \
+    --asset_folder projects/earthengine-legacy/assets/users/ujavalgandhi/temp \
+    --output_file output.csv
+"""
 import argparse
 import ee
 import sys
@@ -35,12 +47,19 @@ print('Found {} assets'.format(len(all_assets)))
 data = []
 
 for asset in all_assets:
-    size = ee.data.getAsset(asset)['sizeBytes']
+    print('Processing {}'.format(asset))
+    info = ee.data.getAsset(asset)
+    asset_type = info['type']
+    size = info['sizeBytes']
     size_mb = round(int(size)/1e6, 2)
-    data.append({'asset': asset, 'size_mb': size_mb})
+    data.append({
+        'asset': asset, 
+        'type': asset_type,
+        'size_mb': size_mb
+    })
     
 
-fieldnames = ['asset', 'size_mb']
+fieldnames = ['asset', 'type', 'size_mb']
 with open(args.output_file, mode='w') as output_file:
     csv_writer = csv.DictWriter(output_file, fieldnames=fieldnames)
     csv_writer.writeheader()
