@@ -12,3 +12,4 @@ This folder contains Scripts and Jupyter notebooks that demonstrate the working 
 ### Scripts
 - [`rename_collection.py`](https://github.com/spatialthoughts/projects/blob/master/ee-python/rename_collection.py): Renames a collection by copying the child assets to a new collection and deleting old collection recursively.
 - [`download_data.py`](https://github.com/spatialthoughts/projects/blob/master/ee-python/download_data.py): How to automate downloading of data using Google Earth Engine API.
+- [`asset_size.py`](https://github.com/spatialthoughts/projects/blob/master/ee-python/asset_size.py): Recursively calculate size of all assets in a folder
