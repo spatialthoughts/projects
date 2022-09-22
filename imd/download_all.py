@@ -24,7 +24,11 @@ for year in range(start_year, end_year+1):
     ds = data.get_xarray()
     ds = ds.where(ds['rain'] != -999.)
     total = ds.sum('time')
+    total = total.rio.set_crs('EPSG:4326')
+    total = total.rio.set_spatial_dims('lon', 'lat')
     output_file = '{}.tif'.format(year)
     output_path = os.path.join(output_folder, output_file)
     total.rio.to_raster(output_path)
     print('Successfully created GeoTIFF file', output_path)
+    
+    
