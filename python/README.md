@@ -22,6 +22,7 @@ This folder contains Scripts and Jupyter notebooks that various geospatial data 
 
 ### Xarray
 - [`xarray_netcdf.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/xarray_netcdf.ipynb): Working with CRU NetCDF files using xarray and rioxarray. 
+- [`xarray_wrf.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/xarray_wrf.ipynb): Converting WRF NetCDF files using xarray and rioxarray to GeoTIFF.
 
 ### Visualization
 
