@@ -23,7 +23,14 @@ args = parser.parse_args()
 old_collection = args.old_collection
 new_collection = args.new_collection
 
-ee.Initialize()
+# Replace the cloud_project with your own project
+cloud_project = 'spatialthoughts'
+
+try:
+    ee.Initialize(project=cloud_project)
+except:
+    ee.Authenticate()
+    ee.Initialize(project=cloud_project)
 
 # Check if new collection exists
 try:

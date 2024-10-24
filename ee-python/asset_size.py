@@ -21,7 +21,14 @@ parser.add_argument('--output_file', help='output file to write')
 args = parser.parse_args()
 parent = args.asset_folder
 
-ee.Initialize()
+# Replace the cloud_project with your own project
+cloud_project = 'spatialthoughts'
+
+try:
+    ee.Initialize(project=cloud_project)
+except:
+    ee.Authenticate()
+    ee.Initialize(project=cloud_project)
 
 def get_asset_list(parent):
     parent_asset = ee.data.getAsset(parent)
