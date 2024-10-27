@@ -6,7 +6,14 @@ parser.add_argument('--asset_folder', help='full path to the asset folder')
 args = parser.parse_args()
 parent = args.asset_folder
 
-ee.Initialize()
+# Replace the cloud_project with your own project
+cloud_project = 'spatialthoughts'
+
+try:
+    ee.Initialize(project=cloud_project)
+except:
+    ee.Authenticate()
+    ee.Initialize(project=cloud_project)
 
 
 def get_asset_list(parent):

@@ -14,7 +14,14 @@ import ee
 import json
 import os
 
-ee.Initialize()
+# Replace the cloud_project with your own project
+cloud_project = 'spatialthoughts'
+
+try:
+    ee.Initialize(project=cloud_project)
+except:
+    ee.Authenticate()
+    ee.Initialize(project=cloud_project)
 
 # Get current date and convert to milliseconds 
 end_date = ee.Date(datetime.datetime.now().timestamp()*1000)
