@@ -28,6 +28,8 @@ This folder contains Scripts and Jupyter notebooks that various geospatial data 
 
 - [`maritime_piracy.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/maritime_piracy.ipynb): Exploring Anti-shipping Activity Messages data.
 
+### API
 
+- [`openmeteo_api.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/openmeteo_api.ipynb): Plotting Weather Forecast from OpenMeteo API.
 
 
