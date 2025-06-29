@@ -1,23 +1,25 @@
-# imports and constants
 import ee
 from ee_plugin import Map
 import json
 
 ee.Initialize()
-collection = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA').filterDate('2019-01-01', '2019-12-31');
-composite = collection.median();
 
-composite_ndvi = composite.normalizedDifference(['B5','B4']);
+bounds = iface.mapCanvas().extent()
+xMin = bounds.xMinimum()
+yMin = bounds.yMinimum()
+xMax = bounds.xMaximum()
+yMax = bounds.yMaximum()
+geometry = ee.Geometry.Rectangle([xMin, yMin, xMax, yMax])
 
-palette = [
-  'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718',
-  '74A901', '66A000', '529400', '3E8601', '207401', '056201',
-  '004C00', '023B01', '012E01', '011D01', '011301']
+dataset = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2') \
+    .filter(ee.Filter.date('2021-01-01', '2022-01-01')) \
+    .filter(ee.Filter.bounds(geometry))
 
-# Replace the Layer Name 'layer' with the actual layer name
-layer = QgsProject.instance().mapLayersByName('layer')[0]
-geometry = json.loads(layer.getFeatures().__next__().geometry().asJson())
-polygon = ee.Geometry.MultiPolygon(geometry['coordinates'])
-Map.addLayer(composite.clip(polygon), {'bands': ['B4', 'B3', 'B2'], 'min':0, 'max': 0.4, 'gamma': 1.2}, 'Image')
+image = dataset.median()
 
-Map.addLayer(composite_ndvi.clip(polygon), {'min': 0, 'max': 1, 'palette': palette}, 'Clipped NDVI');
+visParams = {
+    'min':0,
+    'max':10000,
+    'bands': ['SR_B4', 'SR_B3', 'SR_B2']
+}
+Map.addLayer(image, visParams, 'Image')
