@@ -27,3 +27,8 @@ pov_map_gdf_output = pov_map_gdf[columns].rename(
 # Overwrite the bundled geopackage layer
 pov_map_gdf_output.to_file(world_map_gpkg_path, 
     layer='countries', driver='GPKG', mode='w')
+
+iface.messageBar().pushSuccess(
+    'Update successful',
+    f'World map updated with {country_code} pov boundaries'
+)
