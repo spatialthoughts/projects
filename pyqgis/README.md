@@ -14,4 +14,4 @@ This folder contains a collection of useful PyQGIS Scripts
 - [`ee_qgis.py`](https://github.com/spatialthoughts/projects/blob/master/pyqgis/rastercalculator.py): Script demonstrating use of Google Earth Engine Plugin with a QGIS layer.
 - [`rename_layers.py`](https://github.com/spatialthoughts/projects/blob/master/pyqgis/rename_layers.py): Script to Rename Layers after using the Iterate feature in Processing Toolbox
 - [`split_layer.py`](https://github.com/spatialthoughts/projects/blob/master/pyqgis/split_layer.py): PyQGIS script to split a layer into multiple GeoPackage files based on Admin2 and Admin3 fields.
-- [`update_world_map.py`](https://github.com/spatialthoughts/projects/blob/master/pyqgis/split_layer.py): PyQGIS script to replace QGIS's bundled world map with a country POV layer.
+- [`update_world_map.py`](https://github.com/spatialthoughts/projects/blob/master/pyqgis/update_world_map.py): PyQGIS script to replace QGIS's bundled world map with a country POV layer.
