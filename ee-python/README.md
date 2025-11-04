@@ -12,6 +12,7 @@ This folder contains Scripts and Jupyter notebooks that demonstrate the working 
 - [`delete_gee_assets.ipynb`](https://github.com/spatialthoughts/projects/blob/master/ee-python/delete_gee_assets.ipynb): How to delete multiple assets, including all assets within a folder/collection
 - [`dynamic_visualization_parameters.ipynb`](https://github.com/spatialthoughts/projects/blob/master/ee-python/dynamic_visualization_parameters.ipynb): How to compute image statistics and use them in visualization parameters
 - [`stac_gee_catalog.ipynb`](https://github.com/spatialthoughts/projects/blob/master/ee-python/stac_gee_catalog.ipynb): How to query a static STAC catalog as a JSON file on Google Cloud Storage.
+- [`export_climate_timeseries.ipynb`](https://github.com/spatialthoughts/projects/blob/master/ee-python/export_climate_timeseries.ipynb): Exporting monthly soil moisture from TerraClimate as Cloud-Optimized GeoTIFFs.
 
 ### Scripts
 - [`rename_collection.py`](https://github.com/spatialthoughts/projects/blob/master/ee-python/rename_collection.py): Renames a collection by copying the child assets to a new collection and deleting old collection recursively.
