@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Highway Dashboard</title>
+  <link href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" rel="stylesheet">
+  <script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.17/dist/plot.umd.min.js"></script>
+  <script src="data/data.js"></script>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; display: flex; height: 100vh; }
+    #sidebar { width: 320px; padding: 16px; box-sizing: border-box; background: #f0f2f6; overflow-y: auto; }
+    #main { flex: 1; display: flex; flex-direction: column; padding: 16px; box-sizing: border-box; }
+    #map { flex: 1; }
+    .info { background: #dbeafe; color: #1e3a8a; padding: 12px; border-radius: 6px; }
+    label { display: block; margin-top: 16px; }
+    select { width: 100%; padding: 6px; margin-top: 4px; }
+    #chart { margin-top: 16px; }
+    @media (max-width: 700px) {
+      body { flex-direction: column; height: auto; }
+      #sidebar { width: 100%; }
+      #map { height: 70vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h2>About</h2>
+    <div class="info">Explore the Highway Statistics</div>
+    <label>Select a District
+      <select id="district"></select>
+    </label>
+    <label><input type="checkbox" id="overlay"> Overlay roads</label>
+    <div id="chart"></div>
+  </div>
+  <div id="main">
+    <h1>Highway Dashboard</h1>
+    <div id="map"></div>
+  </div>
+
+  <script>
+    const districtSelect = document.getElementById('district');
+    const overlayCheckbox = document.getElementById('overlay');
+
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://tiles.openfreemap.org/styles/dark',
+      center: [76.2, 15.0],
+      zoom: 6
+    });
+
+    // Bounding box of a GeoJSON feature, used to zoom to the selected district
+    function featureBounds(feature) {
+      const bounds = new maplibregl.LngLatBounds();
+      const depth = feature.geometry.type === 'MultiPolygon' ? 2 : 1;
+      feature.geometry.coordinates.flat(depth).forEach(c => bounds.extend(c));
+      return bounds;
+    }
+
+    function drawChart(lengths, district) {
+      const row = lengths.find(d => d.DISTRICT === district);
+      const data = [
+        { category: 'NH', km: row.NH },
+        { category: 'SH', km: row.SH }
+      ];
+      const chart = Plot.plot({
+        width: 288,
+        height: 280,
+        y: { domain: [0, 2500], label: 'Kilometers', grid: true },
+        x: { label: 'Category' },
+        color: { domain: ['NH', 'SH'], range: ['blue', 'red'], legend: true },
+        marks: [
+          Plot.barY(data, { x: 'category', y: 'km', fill: 'category', tip: true }),
+          Plot.ruleY([0])
+        ]
+      });
+      document.getElementById('chart').replaceChildren(chart);
+    }
+
+    // DISTRICTS, HIGHWAYS and LENGTHS come from data/data.js
+    const districts = DISTRICTS;
+    const lengths = LENGTHS;
+
+    districts.features.forEach(f => {
+      districtSelect.add(new Option(f.properties.DISTRICT, f.properties.DISTRICT));
+    });
+
+    map.on('load', () => {
+      map.addSource('districts', { type: 'geojson', data: districts });
+      map.addSource('highways', { type: 'geojson', data: HIGHWAYS });
+
+      map.addLayer({
+        id: 'districts-fill', type: 'fill', source: 'districts',
+        paint: { 'fill-color': '#7fcdbb', 'fill-opacity': 0.3 }
+      });
+      map.addLayer({
+        id: 'districts-line', type: 'line', source: 'districts',
+        paint: { 'line-color': '#7fcdbb', 'line-width': 0.5 }
+      });
+      map.addLayer({
+        id: 'highways', type: 'line', source: 'highways',
+        layout: { visibility: 'none' },
+        paint: { 'line-color': '#225ea8', 'line-width': 1.5 }
+      });
+      map.addLayer({
+        id: 'selected', type: 'line', source: 'districts',
+        paint: { 'line-color': 'yellow', 'line-width': 2 }
+      });
+
+      function selectDistrict(name) {
+        map.setFilter('selected', ['==', ['get', 'DISTRICT'], name]);
+        const feature = districts.features.find(f => f.properties.DISTRICT === name);
+        map.fitBounds(featureBounds(feature), { padding: 40 });
+        drawChart(lengths, name);
+      }
+
+      districtSelect.addEventListener('change', e => selectDistrict(e.target.value));
+
+      overlayCheckbox.addEventListener('change', e => {
+        map.setLayoutProperty('highways', 'visibility', e.target.checked ? 'visible' : 'none');
+      });
+
+      // Show the attributes of a clicked district in a popup
+      map.on('click', 'districts-fill', e => {
+        const props = e.features[0].properties;
+        const rows = Object.entries(props)
+          .map(([k, v]) => `<tr><th align="left">${k}</th><td>${v}</td></tr>`).join('');
+        new maplibregl.Popup().setLngLat(e.lngLat).setHTML(`<table>${rows}</table>`).addTo(map);
+      });
+      map.on('mouseenter', 'districts-fill', () => map.getCanvas().style.cursor = 'pointer');
+      map.on('mouseleave', 'districts-fill', () => map.getCanvas().style.cursor = '');
+
+      selectDistrict(districtSelect.value);
+    });
+  </script>
+</body>
+</html>
