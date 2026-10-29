@@ -20,10 +20,14 @@ This folder contains Scripts and Jupyter notebooks that various geospatial data 
 - [`reprojection_and_coordinate_transform.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/reprojection_and_coordinate_transform.ipynb): Code for reprojecting layers and coordinate transformation using OGR as well as GeoPandas.
 - [`complex_kml_to_gpkg.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/complex_kml_to_gpkg.ipynb): Converting a large KML file to a GeoPackage using GeoPandas.
 - [`line_interpolation.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/line_interpolation.ipynb): Creating regularly spaced points along lines using GeoPandas.
+- [`point_in_polygon.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/point_in_polygon.ipynb): Point-in-Polygon queries with GeoPandas and H3.
 
 ### Xarray
 - [`xarray_netcdf.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/xarray_netcdf.ipynb): Working with CRU NetCDF files using xarray and rioxarray. 
 - [`xarray_wrf.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/xarray_wrf.ipynb): Converting WRF NetCDF files using xarray and rioxarray to GeoTIFF.
+
+### Cloud-Native Geospatial
+- [`extract_timeseries_cogs.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/extract_timeseries_cogs.ipynb): Extracting time-series from Cloud-Optimized GeoTIFFs (COGs) hosted on cloud buckets using rasterio.
 
 ### Visualization
 
@@ -33,5 +37,6 @@ This folder contains Scripts and Jupyter notebooks that various geospatial data 
 
 - [`openmeteo_api.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/openmeteo_api.ipynb): Plotting Weather Forecast from OpenMeteo API.
 - [`extract_tourist_attractions_data.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/extract_tourist_attractions_data.ipynb): Extract Tourist Attractions in Black Forest National Park along with Popularity Metrics
+- [`transit_routing_api.ipynb`](https://github.com/spatialthoughts/projects/blob/master/python/transit_routing_api.ipynb): Compare public transport travel times between German cities using openrouteservice, Google Routes API and Transitous.
 
 
